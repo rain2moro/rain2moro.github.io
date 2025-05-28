@@ -10,15 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: 'npm'  # 启用 npm 缓存
+
+      # ② 清除旧依赖（避免缓存导致的安装问题）
+      - name: Clean old dependencies
+        run: rm -rf node_modules
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci --force  # --force 强制重新下载所有依赖
 
       - name: Build
         run: npm run build
