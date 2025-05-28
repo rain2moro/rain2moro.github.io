@@ -6,7 +6,7 @@ on:
       - master  # 改为你的主分支名称，通常是 main 或 master
 
 jobs:
-  build-and-deploy:
+  build-and-deploy-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,3 +30,24 @@ jobs:
           publish_dir: ./dist
           publish_branch: gh-pages  # 可选，指定发布到的分支，默认为 gh-pages
           force_orphan: true  # 可选，强制创建孤立分支
+
+      # ④ 使用 Playwright 官方 Action 安装浏览器和系统依赖（替代手动 npx）
+      - name: Install Playwright Browsers and System Dependencies
+        uses: microsoft/playwright-github-action@v1
+        with:
+          # 安装系统级依赖（如 Ubuntu 的 libs）
+          install-deps: true
+          # 可选：指定需要安装的浏览器（默认 chromium, firefox, webkit）
+          browsers: 'chromium,firefox,webkit'
+
+      # ⑤ 运行测试（无需再手动安装浏览器，官方 Action 已处理）
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      # ⑥ 上传报告（保持原逻辑）
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
