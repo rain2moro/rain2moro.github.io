@@ -36,15 +36,6 @@ jobs:
           publish_branch: gh-pages  # 可选，指定发布到的分支，默认为 gh-pages
           force_orphan: true  # 可选，强制创建孤立分支
 
-      # ④ 使用 Playwright 官方 Action 安装浏览器和系统依赖（替代手动 npx）
-      # - name: Install Playwright Browsers and System Dependencies
-      #   uses: microsoft/playwright-github-action@v1
-      #   with:
-      #     # 安装系统级依赖（如 Ubuntu 的 libs）
-      #     install-deps: true
-      #     # 可选：指定需要安装的浏览器（默认 chromium, firefox, webkit）
-      #     browsers: 'chromium,firefox,webkit'
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
