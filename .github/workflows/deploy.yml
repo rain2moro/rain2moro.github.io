@@ -20,7 +20,10 @@ jobs:
 
       # ② 清除旧依赖（避免缓存导致的安装问题）
       - name: Clean old dependencies
-        run: rm -rf node_modules
+        run: |
+          rm -rf node_modules
+          rm -rf playwright-report/
+
 
       - name: Install dependencies
         run: npm ci --force  # --force 强制重新下载所有依赖
