@@ -3,7 +3,7 @@
  * @Autor: Tlx
  * @Date: 2025-04-30 14:43:00
  * @LastEditors: Tlx
- * @LastEditTime: 2025-05-27 15:52:02
+ * @LastEditTime: 2025-05-29 16:11:20
  */
 import { defineConfig, devices } from '@playwright/test';
 
@@ -36,7 +36,8 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    // trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     // video: 'on-first-retry',
     video: 'on', // Record videos for all tests
   },
