@@ -1,18 +1,19 @@
 /*
- * @Description: 
+ * @Description:
  * @Autor: Tlx
  * @Date: 2025-04-30 14:43:00
  * @LastEditors: Tlx
- * @LastEditTime: 2025-05-29 16:11:20
+ * @LastEditTime: 2025-06-05 14:10:07
  */
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
 // import dotenv from 'dotenv';
-// import path from 'path';
+import path from 'path'
+export const STORAGE_STATE = path.join(__dirname, 'chromium.json')
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
@@ -30,6 +31,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
+  // reporter: [['allure-playwright']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -39,7 +41,7 @@ export default defineConfig({
     // trace: 'on-first-retry',
     trace: 'retain-on-failure',
     // video: 'on-first-retry',
-    video: 'on', // Record videos for all tests
+    video: 'retain-on-failure', // Record videos for all tests
   },
   // outputDir: './test-results/videos',
   /* Configure projects for major browsers */
@@ -47,8 +49,25 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      // dependencies: ['setup'],
     },
-
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+      teardown: 'cleanup',
+    },
+    {
+      name: 'needLogin',
+      testMatch: /logged\.spec\.ts/,
+      use: {
+        storageState: STORAGE_STATE,
+      },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'cleanup',
+      testMatch: /.*\.cleanup\.ts/,
+    },
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
@@ -58,7 +77,10 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-
+    {
+      name: 'custom',
+      testMatch: 'custom.spec.ts',
+    },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
@@ -86,4 +108,4 @@ export default defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-});
+})
