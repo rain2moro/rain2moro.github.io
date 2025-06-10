@@ -3,12 +3,11 @@
  * @Autor: Tlx
  * @Date: 2025-05-28 14:29:47
  * @LastEditors: Tlx
- * @LastEditTime: 2025-06-06 15:39:28
+ * @LastEditTime: 2025-06-10 11:16:40
 -->
 <template>
   <div class="form-container">
-    <h2><span class="xxx">哈哈哈fffffffffffffffffffffffffff</span>用户信息表单</h2>
-    
+    <h2>用户信息表单</h2>
     <form @submit.prevent="handleSubmit" class="vue-form">
       <!-- 姓名输入 -->
       <div class="form-group">

@@ -3,7 +3,7 @@
  * @Autor: Tlx
  * @Date: 2025-04-30 14:43:00
  * @LastEditors: Tlx
- * @LastEditTime: 2025-06-05 14:10:07
+ * @LastEditTime: 2025-06-10 11:10:53
  */
 import { defineConfig, devices } from '@playwright/test'
 
@@ -36,7 +36,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
-
+    baseURL: process.env.TEST === '1' ? 'https://rain2moro.github.io' : 'http://localhost:8080',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     // trace: 'on-first-retry',
     trace: 'retain-on-failure',
