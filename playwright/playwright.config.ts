@@ -3,7 +3,7 @@
  * @Autor: Tlx
  * @Date: 2025-04-30 14:43:00
  * @LastEditors: Tlx
- * @LastEditTime: 2025-06-10 11:10:53
+ * @LastEditTime: 2025-06-10 11:24:34
  */
 import { defineConfig, devices } from '@playwright/test'
 
@@ -79,7 +79,7 @@ export default defineConfig({
     },
     {
       name: 'custom',
-      testMatch: 'custom.spec.ts',
+      testMatch: /custom\.spec\.ts/,
     },
     /* Test against mobile viewports. */
     // {
