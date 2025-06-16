@@ -47,11 +47,6 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      // dependencies: ['setup'],
-    },
-    {
       name: 'setup',
       testMatch: /.*\.setup\.ts/,
       teardown: 'cleanup',
@@ -67,6 +62,11 @@ export default defineConfig({
     {
       name: 'cleanup',
       testMatch: /.*\.cleanup\.ts/,
+    },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      // dependencies: ['setup'],
     },
     {
       name: 'firefox',
